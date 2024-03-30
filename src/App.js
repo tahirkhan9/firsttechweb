@@ -4,15 +4,15 @@ import { useWeb3React } from '@web3-react/core';
 import { injected } from './component/connectors';
 
 function App() {
- const {  activate, account, deactivate, active , chainId } = useWeb3React()
-  const connectMetamask = async () => {
-    try{
+  const { activate, account, deactivate, active, chainId } = useWeb3React()
+  const connectWallet = async () => {
+    try {
       await activate(injected)
     } catch (error) {
-    
+
     }
   }
-  const disconnectMetamask = async () => {
+  const disconnectWallet = async () => {
     try {
       await deactivate()
     } catch (error) {
@@ -21,32 +21,33 @@ function App() {
   }
   return (
     <div className="App">
-      {active ? 'connected' : "not connected"}
+      {active ? 'Connected' : "Not Connected"}
 
-      <br/>
+      <br />
       {active ?
-        <button className="disconnectwallet" onClick={disconnectMetamask}>Disconnect Wallet</button>
+        <button className="disconnectwallet" onClick={disconnectWallet}>Disconnect Wallet</button>
 
         :
-        <button className="connectwallet" onClick={connectMetamask}>Connect Wallet</button>
+        <button className="connectwallet" onClick={connectWallet}>Connect Wallet</button>
 
 
       }
-        <br />
+      <br />
       <br />
       <br />
       {active &&
         <>
-        <span className='account'>{account}</span>
-        <br />
-        <br />
-        <span className='chainid'>{chainId}</span>
+        <p>Wallet Address : <span className='account'>{account}</span></p>
+          
+          <br />
+          <p>Chain Id : <span className='chainid'>{chainId}</span></p>
 
         </>
       }
-     
-     
-     
+
+
+
+
     </div>
   );
 }
